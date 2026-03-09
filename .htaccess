@@ -1,0 +1,31 @@
+Options -Indexes
+DirectoryIndex index.php index.html
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # Serve existing files and directories directly
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # Clean URLs: /about -> /about.php
+  RewriteCond %{REQUEST_FILENAME}.php -f
+  RewriteRule ^([^/]+)$ $1.php [L]
+
+  # Clean URLs for case-studies subdirectory
+  RewriteCond %{REQUEST_FILENAME}/index.php -f
+  RewriteRule ^(.*)/?$ $1/index.php [L]
+</IfModule>
+
+<IfModule mod_headers.c>
+  # Cache static assets
+  <FilesMatch "\.(css|js|woff2|woff|ttf|svg|png|jpg|jpeg|gif|ico)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  # No cache for PHP/HTML
+  <FilesMatch "\.(php|html)$">
+    Header set Cache-Control "public, max-age=0, must-revalidate"
+  </FilesMatch>
+</IfModule>
