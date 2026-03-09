@@ -3,6 +3,7 @@ $pageTitle = 'Omulus AI — Healthcare Marketing & Practice Growth Platform';
 $pageDescription = 'Omulus AI helps medical practices grow with digital marketing, paid ads, SEO, and AI-powered practice management software.';
 $currentPage = 'home';
 require_once 'includes/header.php';
+$b = SITE_BASE;
 ?>
 
 <!-- ─── HERO ─── -->
@@ -407,7 +408,7 @@ require_once 'includes/header.php';
         </ul>
       </div>
       <div class="demo-form-wrap animate-on-scroll-right">
-        <form id="demo-form" class="demo-form" action="submit.php" method="POST">
+        <form id="demo-form" class="demo-form" action="<?= $b ?>/submit.php" method="POST">
           <div class="form-row">
             <div class="form-group">
               <label for="first_name">First Name *</label>
